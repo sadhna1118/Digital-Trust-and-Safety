@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Digital Trust & Safety — Standalone</title>
+  <meta name="description" content="Digital Trust & Safety, Cybersecurity & Safer Internet Practices — Building a Secure and Trustworthy Digital Future." />
+  <meta name="theme-color" content="#5b7cfa" />
+  <style>
+:root{
+  --bg: #0b0f1a;          /* background */
+  --bg-soft: #101828;     /* cards */
+  --text: #e6e8ef;        /* text */
+  --muted: #a0a6b8;       /* secondary text */
+  --brand-1:#6a7dff;      /* gradient a */
+  --brand-2:#9c59ff;      /* gradient b */
+  --accent:#22d3ee;       /* cyan accents */
+  --positive:#22c55e;     /* green */
+  --warning:#f59e0b;      /* amber */
+  --danger:#ef4444;       /* red */
+  --radius:16px;
+  --glass: rgba(255,255,255,0.06);
+  --shadow: 0 12px 40px rgba(0,0,0,.35);
+}
+
+*{ box-sizing: border-box; }
+:focus-visible{ outline: 2px dashed var(--accent); outline-offset: 2px; }
+html,body{ height:100%; }
+body{
+  margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color:var(--text); background: radial-gradient(1200px 600px at 80% -10%, rgba(108,99,255,.25), transparent 60%),
+                     radial-gradient(900px 500px at -20% 20%, rgba(156,89,255,.18), transparent 60%),
+                     var(--bg);
+  line-height:1.6; letter-spacing:.2px;
+}
+
+a{ color: var(--accent); text-decoration: none; }
+img{ max-width:100%; display:block; }
+
+.container{ width:min(1200px, 92vw); margin-inline:auto; }
+.reveal { opacity:0; transform: translateY(16px); }
+
+/* Header */
+header{
+  position:sticky; top:0; z-index:50; backdrop-filter: blur(10px);
+  background: linear-gradient(180deg, rgba(10,14,26,.7), rgba(10,14,26,.2));
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.nav{ display:flex; align-items:center; justify-content:space-between; padding:14px 0; }
+.brand{ display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.4px; }
+.brand-badge{ width:36px; height:36px; border-radius:10px; background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
+  display:grid; place-items:center; box-shadow: 0 6px 18px rgba(108,99,255,.35);
+}
+.brand-badge svg{ width:22px; height:22px; fill:white; opacity:.95; }
+
+.nav .btn{ padding:10px 14px; border-radius:12px; background:var(--glass); color:var(--text); border:1px solid rgba(255,255,255,.08); cursor:pointer; }
+.nav .btn:hover{ border-color: rgba(255,255,255,.18); }
+
+/* Hero */
+.hero{ position:relative; padding: 72px 0 40px; }
+.hero-grid{ display:grid; grid-template-columns: 1.2fr 1fr; gap:36px; align-items:center; }
+.title{ font-size: clamp(28px, 4vw, 46px); line-height:1.15; margin:0 0 10px; font-weight:800; }
+.subtitle{ color:var(--muted); margin:0 0 18px; }
+.pill{ display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; font-size:14px; color:#cfe7ff;
+  background: linear-gradient(135deg, rgba(34,211,238,.18), rgba(108,99,255,.18)); border:1px solid rgba(255,255,255,.12);
+}
+
+.cta{ display:flex; gap:12px; margin-top:16px; flex-wrap:wrap; }
+.btn-primary{ background: linear-gradient(135deg, var(--brand-1), var(--brand-2)); color:#fff; border:none; padding:12px 18px; border-radius:14px; font-weight:700; box-shadow: 0 8px 24px rgba(108,99,255,.35); cursor:pointer; }
+.btn-ghost{ background: var(--glass); color:var(--text); border:1px solid rgba(255,255,255,.12); padding:12px 18px; border-radius:14px; font-weight:600; cursor:pointer; }
+
+.hero-card{ background: var(--glass); border:1px solid rgba(255,255,255,.08); border-radius: var(--radius); padding:22px; box-shadow: var(--shadow); }
+.hero-stats{ display:grid; grid-template-columns: repeat(3,1fr); gap:14px; margin-top:10px; }
+.stat{ background: rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06); border-radius:14px; padding:14px; }
+.stat b{ display:block; font-size:18px; }
+.stat small{ color:var(--muted); }
+
+/* Sections */
+section{ padding: 42px 0; }
+.h-section{ margin:0 0 20px; }
+.section-title{ font-size: clamp(22px, 3vw, 32px); margin:0 0 20px; }
+.lead{ color:var(--muted); margin-top:4px; }
+
+.grid-3{ display:grid; grid-template-columns: repeat(3, 1fr); gap:18px; }
+.card{ background: var(--glass); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:18px; box-shadow: var(--shadow); }
+
+.badge{ display:inline-block; padding:4px 10px; border-radius:999px; font-size:12px; background: rgba(108,99,255,.18); border:1px solid rgba(108,99,255,.35); color:#cfd3ff; }
+
+/* Interactive widgets */
+.meter{ height:10px; background:#1b2235; border-radius:999px; overflow:hidden; border:1px solid rgba(255,255,255,.08); }
+.meter > span{ display:block; height:100%; width:0%; background: linear-gradient(90deg, #ef4444, #f59e0b, #22c55e); transition: width .35s ease; }
+.hint{ color:var(--muted); font-size:14px; margin-top:6px; }
+
+.quiz-q{ font-weight:700; margin: 8px 0 10px; }
+.options{ display:grid; gap:10px; }
+.opt{ padding:10px; border-radius:12px; background: rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); cursor:pointer; color:inherit; }
+.opt.correct{ outline: 2px solid var(--positive); }
+.opt.wrong{ outline: 2px solid var(--danger); }
+
+.timeline{ position:relative; padding-left:14px; }
+.timeline::before{ content:""; position:absolute; left:6px; top:4px; bottom:4px; width:2px; background: linear-gradient(var(--brand-1), var(--brand-2)); opacity:.6; }
+.tl-item{ position:relative; margin: 12px 0 12px 12px; padding-left:14px; }
+.tl-item::before{ content:""; position:absolute; left:-10px; top:6px; width:10px; height:10px; border-radius:50%; background: var(--accent); box-shadow: 0 0 0 3px rgba(34,211,238,.2); }
+
+/* Decorative gradient outlines */
+.card, .hero-card{ position:relative; }
+.card::after, .hero-card::after { content:""; position:absolute; inset:-1px; border-radius:inherit; padding:1px; background: linear-gradient(135deg, rgba(106,125,255,.5), rgba(156,89,255,.5)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity:.55; pointer-events:none; }
+.section-title{ position:relative; }
+.section-title::after{ content:""; position:absolute; left:0; bottom:-8px; width:80px; height:3px; background: linear-gradient(90deg, var(--brand-1), var(--brand-2)); border-radius:3px; opacity:.8; }
+
+/* Sheen effect for hero heading */
+.title{ background: linear-gradient(90deg, #fff, #cfd3ff, #fff); -webkit-background-clip:text; background-clip:text; color:transparent; background-size:200% 100%; animation: sheen 6s linear infinite; }
+@keyframes sheen{ 0%{ background-position:0% 0; } 100%{ background-position:200% 0; } }
+
+/* Theme toggle (sun/moon pill) */
+.toggle{ background:transparent; border:none; padding:0; cursor:pointer; }
+.toggle:focus-visible{ outline: 2px dashed var(--accent); outline-offset: 4px; border-radius: 999px; }
+.toggle-track{ position:relative; width:64px; height:32px; border-radius:999px; display:inline-block; background: linear-gradient(135deg, rgba(106,125,255,.25), rgba(156,89,255,.25)); border:1px solid rgba(255,255,255,.18); box-shadow: inset 0 0 14px rgba(0,0,0,.25); }
+.toggle-knob{ position:absolute; top:3px; left:3px; width:26px; height:26px; border-radius:50%; background: linear-gradient(135deg, var(--brand-1), var(--brand-2)); box-shadow: 0 6px 18px rgba(108,99,255,.35), 0 2px 6px rgba(0,0,0,.35); transition: left .28s ease, transform .28s ease; }
+.icon{ position:absolute; top:50%; transform: translateY(-50%); opacity:.55; transition: opacity .28s ease, filter .28s ease; color:#cfd3ff; }
+.icon.sun{ left:8px; filter: drop-shadow(0 0 4px rgba(250,204,21,.25)); color:#facc15; }
+.icon.moon{ right:8px; filter: drop-shadow(0 0 4px rgba(165,180,252,.25)); color:#a5b4fc; }
+/* State when light theme is active */
+:root[data-theme="light"] .toggle-knob{ left:35px; }
+:root[data-theme="light"] .icon.sun{ opacity:.95; }
+:root .icon.moon{ opacity:.95; }
+:root[data-theme="light"] .icon.moon{ opacity:.35; }
+
+/* Reduced motion toggle badge */
+#motion-toggle{ position:fixed; right:14px; bottom:14px; z-index:60; }
+
+/* Footer */
+footer{ padding: 32px 0 60px; color:var(--muted); }
+
+/* Responsive */
+@media (max-width: 900px){
+  .hero-grid{ grid-template-columns: 1fr; }
+  .grid-3{ grid-template-columns: 1fr; }
+  .hero{ padding-top: 48px; }
+}
+
+/* Print-friendly summary */
+@media print{
+  header,.cta,.quiz,.phish,.hero-stats{ display:none !important; }
+  body{ background:#fff; color:#000; }
+  .card{ box-shadow:none; border:1px solid #ccc; }
+}
+
+/* Light theme */
+:root[data-theme="light"] {
+  --bg: #f7f9fc;
+  --bg-soft: #ffffff;
+  --text: #0b1220;
+  --muted: #4b5565;
+  --glass: rgba(0,0,0,0.04);
+  --shadow: 0 8px 24px rgba(0,0,0,.12);
+}
+
+[data-theme="light"] body{
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(108,99,255,.10), transparent 60%),
+    radial-gradient(900px 500px at -20% 20%, rgba(156,89,255,.08), transparent 60%),
+    var(--bg);
+}
+
+[data-theme="light"] header{
+  background: linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.7));
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+
+[data-theme="light"] .nav .btn{
+  background: rgba(0,0,0,.04);
+  color: var(--text);
+  border:1px solid rgba(0,0,0,.08);
+}
+
+[data-theme="light"] .card{
+  background: rgba(255,255,255,.75);
+  border-color: rgba(0,0,0,.08);
+}
+
+[data-theme="light"] .stat{
+  background: rgba(0,0,0,.04);
+  border-color: rgba(0,0,0,.06);
+}
+
+[data-theme="light"] .meter{
+  background: #e5e7eb;
+  border-color: rgba(0,0,0,.08);
+}
+  /* Data Classification UI */
+.dc-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap:18px; }
+@media (max-width: 900px){ .dc-grid{ grid-template-columns: 1fr; } }
+.dc-card{ cursor:pointer; position:relative; overflow:hidden; }
+.dc-card .peek{ color: var(--muted); font-size: 14px; margin-top: 6px; opacity:.85; }
+.dc-card .count{ position:absolute; right:12px; top:12px; padding:4px 8px; border-radius:999px; background: rgba(34,211,238,.15); border:1px solid rgba(34,211,238,.35); color:#baf2ff; font-size:12px; }
+.dc-card:hover::before{ content:""; position:absolute; inset:0; background: radial-gradient(400px 200px at var(--mx,50%) var(--my,50%), rgba(156,89,255,.15), transparent 60%); pointer-events:none; }
+.dc-card{ transition: transform .25s ease; }
+.dc-card:active{ transform: scale(.98); }
+
+.dc-modal{ position: fixed; inset:0; display:none; align-items:center; justify-content:center; background: rgba(0,0,0,.5); backdrop-filter: blur(6px); z-index:80; }
+.dc-modal[open]{ display:flex; animation: fadeIn .18s ease; }
+.dc-dialog{ width:min(900px, 92vw); max-height:80vh; overflow:auto; background: var(--bg-soft); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:16px; box-shadow: var(--shadow); transform: scale(.92); animation: popIn .18s ease forwards; }
+.dc-h{ display:flex; align-items:center; justify-content:space-between; gap:8px; position:sticky; top:0; background: inherit; padding-bottom:8px; z-index:1; }
+.dc-list{ display:grid; gap:10px; margin-top:8px; }
+.dc-item{ border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:12px; background: rgba(255,255,255,.04); overflow:hidden; }
+.dc-item summary{ cursor:pointer; list-style:none; }
+.dc-item summary::-webkit-details-marker{ display:none; }
+.dc-item .meta{ color: var(--muted); font-size: 12px; }
+.dc-item .preview{ margin-top:6px; padding:10px; border-radius:10px; background: rgba(0,0,0,.18); border:1px solid rgba(255,255,255,.08); }
+@keyframes popIn{ from{ transform: scale(.92); opacity:0 } to{ transform: scale(1); opacity:1 } }
+@keyframes fadeIn{ from{ opacity:0 } to{ opacity:1 } }
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="brand-badge" aria-hidden="true" title="Shield">
+          <svg viewBox="0 0 24 24" role="img" aria-label="Secure Shield">
+            <defs>
+              <linearGradient id="g-logo" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#6a7dff"/>
+                <stop offset="1" stop-color="#9c59ff"/>
+              </linearGradient>
+            </defs>
+            <path d="M12 2l7 3v6c0 5-3.5 9.74-7 11-3.5-1.26-7-6-7-11V5l7-3z" fill="url(#g-logo)" opacity="0.95"/>
+            <path d="M9.5 13.5v-1.2a2.5 2.5 0 115 0v1.2h.7c.44 0 .8.36.8.8v2.9c0 .44-.36.8-.8.8H8.8a.8.8 0 01-.8-.8v-2.9c0-.44.36-.8.8-.8h.7zm1.5 0h2v-1.2a1 1 0 10-2 0v1.2z" fill="#0b0f1a" opacity="0.9"/>
+          </svg>
+        </div>
+        <span>Digital Trust & Safety</span>
+      </div>
+      <nav>
+        <a class="btn" href="#threats">Threats</a>
+        <a class="btn" href="#practices">Practices</a>
+        <a class="btn" href="#interactive">Interactive</a>
+        <a class="btn" href="#classification">Classification</a>
+        <a class="btn" href="#summary">Summary</a>
+        <a class="btn" href="#references">References</a>
+        <button id="theme-toggle" class="toggle" role="switch" aria-checked="false" aria-label="Toggle theme" title="Toggle theme">
+          <span class="toggle-track" aria-hidden="true">
+            <span class="icon sun">
+              <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.8 1.42-1.42zm10.48 0l1.79-1.8 1.41 1.41-1.8 1.79-1.4-1.4zM12 4V1h-0v3h0zm0 19v-3h0v3h0zM4 12H1v0h3v0zm19 0h-3v0h3v0zM6.76 19.16l-1.42 1.42-1.79-1.8 1.41-1.41 1.8 1.79zM19.16 17.24l1.4 1.4-1.79 1.8-1.41-1.41 1.8-1.79zM12 7a5 5 0 100 10 5 5 0 000-10z"/></svg>
+            </span>
+            <span class="icon moon">
+              <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+            </span>
+            <span class="toggle-knob"></span>
+          </span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="pill">Building a Secure and Trustworthy Digital Future</span>
+          <h1 class="title">Cybersecurity & Safer Internet Practices</h1>
+          <p class="subtitle">Presented by: Coder’s Creed — Government College for Girls, Nacholi — Date: 22/11/2025</p>
+          <div class="cta">
+            <a href="#interactive" class="btn-primary">Start Interactive Demo</a>
+            <a href="#summary" class="btn-ghost">Download Summary (Print)</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat"><b id="stat-users">2.8B+</b><small>Daily social media users</small></div>
+            <div class="stat"><b id="stat-threats">+15%</b><small>Annual cyber threats</small></div>
+            <div class="stat"><b id="stat-secure">95%</b><small>Breaches from weak passwords</small></div>
+          </div>
+        </div>
+        <div>
+          <div class="hero-card">
+            <h3 style="margin:0 0 10px">Why Digital Trust Matters</h3>
+            <ul style="margin:0; padding-left: 18px; color:var(--muted)">
+              <li>We share personal data—photos, passwords, banking info</li>
+              <li>Cyber threats increase every year</li>
+              <li>Trust keeps payments, business and communication running</li>
+            </ul>
+          </div>
+          <div class="hero-card" style="margin-top:12px">
+            <h3 style="margin:0 0 10px">What is Cybersecurity?</h3>
+            <p style="margin:0; color:var(--muted)">Protecting computers, networks and data from attacks using technology, rules, awareness and safe habits.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THREATS -->
+    <section id="threats">
+      <div class="container">
+        <h2 class="section-title">Common Cyber Threats</h2>
+        <p class="lead">Recognize the patterns so you can avoid them.</p>
+        <div class="grid-3">
+          <div class="card">
+            <span class="badge">Phishing</span>
+            <p>Fake emails or sites asking for passwords and OTPs. Always verify the sender and URL.</p>
+          </div>
+          <div class="card">
+            <span class="badge">Malware</span>
+            <p>Viruses or ransomware that damage your device or lock your files. Use updated antivirus.</p>
+          </div>
+          <div class="card">
+            <span class="badge">Data Breach</span>
+            <p>Large leaks where personal information is exposed. Use unique passwords per site.</p>
+          </div>
+          <div class="card">
+            <span class="badge">Identity Theft</span>
+            <p>Someone pretends to be you online. Enable 2FA and monitor account activity.</p>
+          </div>
+          <div class="card">
+            <span class="badge">Fraud Examples</span>
+            <p>UPI/Bank fraud, social media account hijacking, and online shopping scams.</p>
+          </div>
+          <div class="card">
+            <span class="badge">Reporting</span>
+            <p>Report incidents to cybercrime portals and platform support promptly.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRACTICES -->
+    <section id="practices">
+      <div class="container">
+        <h2 class="section-title">Safer Internet Practices</h2>
+        <p class="lead">Small habits that create big protection.</p>
+        <div class="grid-3">
+          <div class="card">
+            <h3>Strong & Unique Passwords</h3>
+            <p>Use passphrases with 12+ characters. Avoid reuse across services.</p>
+          </div>
+          <div class="card">
+            <h3>Two-Factor Authentication</h3>
+            <p>Add a second step like an authenticator app or SMS to stop takeover.</p>
+          </div>
+          <div class="card">
+            <h3>Think Before You Click</h3>
+            <p>Avoid unknown links or attachments, especially from urgency-bait messages.</p>
+          </div>
+          <div class="card">
+            <h3>Protect Personal Data</h3>
+            <p>Limit oversharing, lock devices, review app permissions, back up data.</p>
+          </div>
+          <div class="card">
+            <h3>Cyber Ethics</h3>
+            <p>Respect others, avoid bullying and misinformation, credit creators.</p>
+          </div>
+          <div class="card">
+            <h3>Roles & Responsibility</h3>
+            <p>Schools, parents, government drive awareness, policies and reporting.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE -->
+    <section id="interactive">
+      <div class="container">
+        <h2 class="section-title">Interactive Lab</h2>
+        <p class="lead">Try these quick tools to test your security awareness.</p>
+
+        <div class="grid-3">
+          <!-- Password Strength Meter -->
+          <div class="card">
+            <h3>Create a Strong Password</h3>
+            <input id="pw" type="password" placeholder="Type a password" style="width:100%; padding:12px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); color:var(--text)">
+            <div class="meter" style="margin-top:10px"><span id="pw-bar"></span></div>
+            <div id="pw-hint" class="hint">Tip: use 3–4 random words, numbers and symbols.</div>
+          </div>
+
+          <!-- Phishing Detector -->
+          <div class="card phish">
+            <h3>Phishing Link Detector</h3>
+            <input id="url" type="text" placeholder="Paste a suspicious URL" style="width:100%; padding:12px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); color:var(--text)">
+            <div class="hint" id="url-result">Result will appear here.</div>
+          </div>
+
+          <!-- Mini Quiz -->
+          <div class="card quiz">
+            <h3>1-Min Safety Quiz</h3>
+            <div class="quiz-q">If an email says “urgent: verify your account now”, what should you do?</div>
+            <div class="options">
+              <button class="opt" data-correct="false">Click the link immediately</button>
+              <button class="opt" data-correct="true">Verify sender and open site manually</button>
+              <button class="opt" data-correct="false">Reply with your password</button>
+            </div>
+            <div class="hint" id="quiz-hint">Choose the safest option.</div>
+          </div>
+
+          <!-- Widgets injected below by JS: Password Generator, Breach Awareness, Phishing Header Simulator -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SUMMARY / PRINT -->
+    <section id="summary">
+      <div class="container">
+        <h2 class="section-title">Project Summary</h2>
+        <div class="card">
+          <h3>Digital Trust Building Factors</h3>
+          <ul>
+            <li>Transparency: clearly explain how data is used</li>
+            <li>Privacy protection and user control</li>
+            <li>User-friendly security, not obstacles</li>
+            <li>Reporting and responsive support systems</li>
+          </ul>
+          <h3>Conclusion</h3>
+          <p>Internet is powerful but risky. Trust, awareness and cybersecurity go together. Safe habits make digital life better.</p>
+          <button onclick="window.print()" class="btn-primary">Print / Save as PDF</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TECHNICAL DEMOS -->
+    <section id="demos">
+      <div class="container">
+        <h2 class="section-title">Technical Demos</h2>
+        <p class="lead">Industry-style previews showcasing security concepts and best practices.</p>
+        <div class="grid-3">
+          <div class="card" id="hdr-demo">
+            <h3>Security Headers Preview</h3>
+            <p class="hint">Typical HTTP headers that harden web apps (simulated for static file).</p>
+            <ul id="hdr-list" style="padding-left:18px; margin:6px 0 0;">
+              <li><b>Content-Security-Policy</b>: default-src 'self'; frame-ancestors 'none';</li>
+              <li><b>Strict-Transport-Security</b>: max-age=31536000; preload</li>
+              <li><b>Referrer-Policy</b>: no-referrer</li>
+              <li><b>X-Frame-Options</b>: DENY</li>
+              <li><b>Permissions-Policy</b>: geolocation=()</li>
+            </ul>
+          </div>
+
+          <div class="card" id="xss-demo">
+            <h3>Input Sanitization</h3>
+            <input id="xss-in" type="text" placeholder="Type HTML or <script> payload" style="width:100%; padding:10px; border-radius:10px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); color:inherit"/>
+            <div style="display:flex; gap:8px; margin-top:8px;">
+              <button id="xss-render" class="btn-primary">Render Safely</button>
+              <button id="xss-clear" class="btn-ghost">Clear</button>
+            </div>
+            <div class="hint">Dangerous tags/attributes will be removed.</div>
+            <div id="xss-out" class="card" style="margin-top:10px; padding:10px; min-height:40px;"></div>
+          </div>
+
+          <div class="card" id="risk-demo">
+            <h3>Risk Matrix</h3>
+            <div style="display:grid; gap:8px;">
+              <label>Likelihood
+                <input id="risk-like" type="range" min="1" max="5" value="3"/>
+              </label>
+              <label>Impact
+                <input id="risk-impact" type="range" min="1" max="5" value="3"/>
+              </label>
+              <div id="risk-res" class="hint">Score: 9 (Medium) — Controls: 2FA, least privilege, backups.</div>
+            </div>
+          </div>
+
+          <div class="card" id="stride-demo">
+            <h3>Threat Modeling (STRIDE)</h3>
+            <select id="stride-asset" style="padding:10px; border-radius:10px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); color:inherit">
+              <option>Login form</option>
+              <option>Payments API</option>
+              <option>Profile settings</option>
+            </select>
+            <ul id="stride-out" class="hint" style="padding-left:18px; margin-top:8px"></ul>
+          </div>
+
+          <div class="card" id="crypto-demo">
+            <h3>Local Encryption (AES-GCM)</h3>
+            <textarea id="crypto-text" rows="3" placeholder="Type a secret note" style="width:100%; padding:10px; border-radius:10px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); color:inherit"></textarea>
+            <input id="crypto-pass" type="password" placeholder="Password" style="width:100%; padding:10px; border-radius:10px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); color:inherit; margin-top:8px;"/>
+            <div style="display:flex; gap:8px; margin-top:8px;">
+              <button id="crypto-enc" class="btn-primary">Encrypt</button>
+              <button id="crypto-dec" class="btn-ghost">Decrypt</button>
+            </div>
+            <div id="crypto-out" class="hint" aria-live="polite" style="margin-top:8px; word-break:break-all"></div>
+          </div>
+
+          <div class="card" id="contrast-demo">
+            <h3>WCAG Contrast Checker</h3>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <label>Text <input id="cc-text" type="color" value="#e6e8ef"/></label>
+              <label>Background <input id="cc-bg" type="color" value="#0b0f1a"/></label>
+            </div>
+            <div id="cc-sample" style="margin-top:10px; padding:10px; border-radius:10px; border:1px solid rgba(255,255,255,.12);">Sample Text</div>
+            <div id="cc-result" class="hint">Ratio: 12.5:1 — Pass: AA/AAA</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REFERENCES (inlined for standalone) -->
+    <section id="references">
+      <div class="container">
+        <h2 class="section-title">References & Acknowledgments</h2>
+        <div class="card">
+          <h3>Standards & Frameworks</h3>
+          <ul>
+            <li>NIST Cybersecurity Framework</li>
+            <li>OWASP Top 10</li>
+            <li>ISO/IEC 27001</li>
+          </ul>
+        </div>
+        <div class="card" style="margin-top:14px;">
+          <h3>Educational Resources</h3>
+          <ul>
+            <li>Have I Been Pwned — K-Anonymity concept</li>
+            <li>Google Safety Center — Online safety tips</li>
+            <li>IC3 — Internet Crime Complaint Center (FBI)</li>
+          </ul>
+        </div>
+        <div class="card" style="margin-top:14px;">
+          <h3>Libraries Used</h3>
+          <ul>
+            <li>Custom JS animations + IntersectionObserver</li>
+            <li>Canvas starfield background</li>
+          </ul>
+        </div>
+        <div class="card" style="margin-top:14px;">
+          <h3>Acknowledgments</h3>
+          <p>Presented by: Coder’s Creed — Government College for Girls, Nacholi.</p>
+          <p>Thanks to peers and faculty for feedback and review.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <button id="motion-toggle" class="btn-ghost" aria-pressed="false" title="Toggle reduced motion">Reduced Motion</button>
+  <footer>
+    <div class="container">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+        <small>© 2025 Coder’s Creed — Government College for Girls, Nacholi</small>
+        <small>Standalone file: works offline, no external dependencies</small>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+// Animated hero counters
+function animateNumber(el, to, duration = 1200) {
+  const from = 0;
+  const start = performance.now();
+  function frame(now) {
+    const p = Math.min(1, (now - start) / duration);
+    const n = Math.round(from + (to - from) * p);
+    el.textContent = to >= 1000 ? n.toLocaleString() : n + (typeof to === 'number' && to < 100 ? '%' : '');
+    if (p < 1) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+window.addEventListener('load', () => {
+  // Theme: initialize from saved preference or system
+  const saved = localStorage.getItem('theme');
+  const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+  const theme = saved || (prefersLight ? 'light' : 'dark');
+  document.documentElement.setAttribute('data-theme', theme === 'light' ? 'light' : '');
+  const toggleBtn = document.getElementById('theme-toggle');
+  if (toggleBtn) toggleBtn.setAttribute('aria-checked', String(theme === 'light'));
+
+  const u = document.getElementById('stat-users');
+  const t = document.getElementById('stat-threats');
+  const s = document.getElementById('stat-secure');
+  if (u) animateNumber(u, 2800000000);
+  if (t) t.textContent = '+15%';
+  if (s) s.textContent = '95%';
+});
+
+// Theme toggle handler
+const toggle = document.getElementById('theme-toggle');
+function applyTheme(next){
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next || 'dark');
+  if (toggle) toggle.setAttribute('aria-checked', String(next === 'light'));
+}
+if (toggle) {
+  const act = ()=>{
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    const next = isLight ? '' : 'light';
+    applyTheme(next);
+  };
+  toggle.addEventListener('click', act);
+  toggle.addEventListener('keydown', (e)=>{
+    if(e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); act(); }
+  });
+}
+
+// Password strength meter
+const pw = document.getElementById('pw');
+const pwBar = document.getElementById('pw-bar');
+const pwHint = document.getElementById('pw-hint');
+function scorePassword(val) {
+  let score = 0;
+  if (!val) return 0;
+  const sets = [/[a-z]/, /[A-Z]/, /\d/, /[^A-Za-z0-9]/];
+  sets.forEach(rx => {
+    if (rx.test(val)) score += 1;
+  });
+  score += Math.min(4, Math.floor(val.length / 4)); // length adds up to +4
+  const repeats = /(.)\1{2,}/;
+  if (repeats.test(val)) score -= 1;
+  return Math.max(0, Math.min(8, score));
+}
+function updatePw() {
+  const val = pw.value;
+  const score = scorePassword(val); // 0..8
+  const pct = Math.round((score / 8) * 100);
+  pwBar.style.width = pct + '%';
+  if (pct < 35) {
+    pwHint.textContent = 'Weak: add length, mix UPPER/lower, numbers, symbols.';
+    pwHint.style.color = '#ef9a9a';
+  } else if (pct < 70) {
+    pwHint.textContent = 'Fair: consider a passphrase with 3–4 words + symbols.';
+    pwHint.style.color = '#f8d38b';
+  } else {
+    pwHint.textContent = 'Strong: unique and long. Avoid reuse across sites.';
+    pwHint.style.color = '#9be7c4';
+  }
+}
+if (pw) {
+  pw.addEventListener('input', updatePw);
+}
+
+// Phishing quick heuristics
+const urlInput = document.getElementById('url');
+const urlRes = document.getElementById('url-result');
+function analyzeUrl(u) {
+  try {
+    const d = new URL(u);
+    return d;
+  } catch {
+    return null;
+  }
+}
+function heuristic(u) {
+  if (!u) return { level: 'neutral', msg: 'Enter a full URL like https://example.com' };
+  const parsed = analyzeUrl(u);
+  if (!parsed) return { level: 'danger', msg: 'Not a valid URL' };
+  const host = parsed.hostname.toLowerCase();
+  const redFlags = [];
+  if (host.split('.').length > 3) redFlags.push('suspicious subdomains');
+  if (/\d+\.\d+\.\d+\.\d+/.test(host)) redFlags.push('raw IP instead of domain');
+  if (host.includes('verify') || host.includes('secure') || host.includes('login')) redFlags.push('common bait words');
+  if (parsed.protocol !== 'https:') redFlags.push('not using HTTPS');
+  const level = redFlags.length >= 2 ? 'danger' : redFlags.length === 1 ? 'warning' : 'ok';
+  return { level, msg: redFlags.length ? 'Caution: ' + redFlags.join(', ') : 'Looks okay, but always verify the source.' };
+}
+function updateUrl() {
+  const { level, msg } = heuristic(urlInput.value.trim());
+  urlRes.textContent = msg;
+  const map = { ok: '#9be7c4', warning: '#f8d38b', danger: '#ef9a9a', neutral: '#a0a6b8' };
+  urlRes.style.color = map[level] || map.neutral;
+}
+if (urlInput) {
+  urlInput.addEventListener('input', updateUrl);
+}
+
+// Quiz logic
+const opts = document.querySelectorAll('.opt');
+const qHint = document.getElementById('quiz-hint');
+opts.forEach(btn =>
+  btn.addEventListener('click', () => {
+    const correct = btn.getAttribute('data-correct') === 'true';
+    opts.forEach(o => {
+      o.disabled = true;
+      if (o.getAttribute('data-correct') === 'true') o.classList.add('correct');
+    });
+    if (!correct) btn.classList.add('wrong');
+    if (qHint)
+      qHint.textContent = correct
+        ? 'Correct: open the site manually and verify the sender.'
+        : 'Not safe. Avoid clicking links in urgent emails.';
+  })
+);
+
+// Smooth scroll for internal links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const id = a.getAttribute('href');
+    const el = document.querySelector(id);
+    if (el) {
+      e.preventDefault();
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// ------------------------
+// Enhanced visuals: starfield parallax background
+// ------------------------
+(function createStarfield(){
+  const cvs = document.createElement('canvas');
+  cvs.setAttribute('aria-hidden','true');
+  cvs.style.cssText = 'position:fixed;inset:0;z-index:-1;pointer-events:none;';
+  document.body.appendChild(cvs);
+  const ctx = cvs.getContext('2d');
+  let w,h,stars=[]; const N=140;
+  function resize(){ w= cvs.width = window.innerWidth; h=cvs.height = window.innerHeight; }
+  function init(){ stars = Array.from({length:N},()=>({ x:Math.random()*w, y:Math.random()*h, r: Math.random()*1.2+0.2, s: Math.random()*0.6+0.2 })); }
+  function draw(){ ctx.clearRect(0,0,w,h); for(const st of stars){ ctx.beginPath(); ctx.arc(st.x,st.y,st.r,0,Math.PI*2); ctx.fillStyle = `rgba(255,255,255,${0.5+Math.sin(Date.now()*0.002*st.s)*0.5})`; ctx.fill(); st.x += st.s*0.15; if(st.x> w+2) st.x=-2; }
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize', ()=>{resize(); init();});
+  resize(); init(); draw();
+})();
+
+// ------------------------
+// Scroll reveal animations (IO fallback for standalone)
+// ------------------------
+(function revealOnScroll(){
+  const els = document.querySelectorAll('.card, .hero-card, .section-title, .stat');
+  els.forEach(el=>{ el.style.opacity=0; el.style.transform='translateY(16px)'; el.style.transition='opacity .6s ease, transform .6s ease'; });
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.style.opacity=1; e.target.style.transform='translateY(0)'; io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  els.forEach(el=> io.observe(el));
+
+  // floating particles reacting to scroll
+  const particles = Array.from({length:24},()=>{
+    const e = document.createElement('div');
+    e.style.cssText='position:fixed; width:6px; height:6px; border-radius:50%; background:rgba(156,89,255,.55); top:'+(Math.random()*100)+'vh; left:'+(Math.random()*100)+'vw; z-index:-1; filter:blur(0.2px);';
+    document.body.appendChild(e); return e; });
+  window.addEventListener('scroll', ()=>{
+    const y = window.scrollY; particles.forEach((p,i)=>{ p.style.transform = `translateY(${Math.sin((y+i*50)/220)*8}px)`; });
+  }, {passive:true});
+})();
+
+// ------------------------
+// Card tilt effect
+// ------------------------
+(function cardTilt(){
+  const max=8;
+  function enter(e){ e.currentTarget.style.transition='transform .12s ease'; }
+  function move(e){ const b=e.currentTarget.getBoundingClientRect(); const x=(e.clientX-b.left)/b.width; const y=(e.clientY-b.top)/b.height; const rx=(y-0.5)*-max; const ry=(x-0.5)*max; e.currentTarget.style.transform=`perspective(600px) rotateX(${rx}deg) rotateY(${ry}deg)`; }
+  function leave(e){ e.currentTarget.style.transform='none'; e.currentTarget.style.transition='transform .3s ease'; }
+  document.querySelectorAll('.card, .hero-card').forEach(c=>{ c.addEventListener('mouseenter', enter); c.addEventListener('mousemove', move); c.addEventListener('mouseleave', leave); });
+})();
+
+// ------------------------
+// Dynamic widgets + Technical Demos
+// ------------------------
+(function addWidgets(){
+  const grid = document.querySelector('#interactive .grid-3');
+  if(!grid) return;
+
+  // Password Generator
+  const gen = document.createElement('div');
+  gen.className='card';
+  gen.innerHTML = `
+    <h3>Password Generator</h3>
+    <div style="display:grid; gap:8px;">
+      <div style="display:flex; gap:8px; align-items:center;">
+        <label style="min-width:70px">Length</label>
+        <input type="range" id="pg-l" min="8" max="32" value="16" style="flex:1"/>
+        <span id="pg-lv">16</span>
+      </div>
+      <div style="display:flex; gap:12px; flex-wrap:wrap;">
+        <label><input type="checkbox" id="pg-u" checked/> Uppercase</label>
+        <label><input type="checkbox" id="pg-n" checked/> Numbers</label>
+        <label><input type="checkbox" id="pg-s" checked/> Symbols</label>
+        <label><input type="checkbox" id="pg-p"/> Pronounceable</label>
+      </div>
+      <div style="display:flex; gap:8px;">
+        <input id="pg-out" readonly style="flex:1; padding:10px; border-radius:10px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); color:inherit" placeholder="Click Generate"/>
+        <button id="pg-gen" class="btn-primary">Generate</button>
+        <button id="pg-copy" class="btn-ghost">Copy</button>
+      </div>
+      <div class="meter"><span id="pg-meter"></span></div>
+    </div>`;
+  grid.appendChild(gen);
+
+  function randFrom(s){ return s[Math.floor(Math.random()*s.length)]; }
+  function generatePassword(len, opts){
+    const lowers='abcdefghijklmnopqrstuvwxyz';
+    const uppers='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const nums='0123456789';
+    const syms='!@#$%^&*()_+{}[]<>?~';
+    if(opts.p){ // pronounceable pairs
+      const vowels='aeiou'; const cons=lowers.replace(/[aeiou]/g,'');
+      let out='';
+      while(out.length < len){ out += randFrom(cons) + randFrom(vowels); }
+      out = out.slice(0,len);
+      if(opts.u) out = out.split('').map((ch,i)=> i%3===0 ? ch.toUpperCase() : ch).join('');
+      if(opts.n) out = out.replace(/[aeiou]/g,(m)=> m+randFrom(nums));
+      if(opts.s) out += randFrom(syms);
+      return out.slice(0,len);
+    }
+    let pool=lowers; if(opts.u) pool+=uppers; if(opts.n) pool+=nums; if(opts.s) pool+=syms;
+    if(pool.length===0) pool=lowers;
+    return Array.from({length:len},()=> randFrom(pool)).join('');
+  }
+  const l = gen.querySelector('#pg-l'); const lv = gen.querySelector('#pg-lv'); const out = gen.querySelector('#pg-out'); const btn = gen.querySelector('#pg-gen'); const copy = gen.querySelector('#pg-copy');
+  const u = gen.querySelector('#pg-u'); const n = gen.querySelector('#pg-n'); const s = gen.querySelector('#pg-s'); const p = gen.querySelector('#pg-p'); const mbar = gen.querySelector('#pg-meter');
+  function updateLen(){ lv.textContent = l.value; }
+  function genAndScore(){ const pwd = generatePassword(Number(l.value), {u:u.checked,n:n.checked,s:s.checked,p:p.checked}); out.value=pwd; const score = (function(v){ let sc=0; if(!v) return 0; const sets=[/[a-z]/,/A-Z/.source?/[A-Z]/:/.^/ ,/\d/,/[^A-Za-z0-9]/]; sets.forEach(rx=>{ if((rx).test?rx.test(v):new RegExp(rx).test(v)) sc++; }); sc += Math.min(4, Math.floor(v.length/4)); const rpt=/(.)\1{2,}/; if(rpt.test(v)) sc--; return Math.max(0,Math.min(8,sc)); })(pwd); mbar.style.width = Math.round((score/8)*100)+'%'; }
+  l.addEventListener('input', ()=>{ updateLen(); genAndScore(); }); [u,n,s,p].forEach(ch=> ch.addEventListener('change', genAndScore)); btn.addEventListener('click',genAndScore);
+  copy.addEventListener('click', ()=>{ if(!out.value) return; navigator.clipboard.writeText(out.value); copy.textContent='Copied'; setTimeout(()=>copy.textContent='Copy', 1200); }); updateLen();
+
+  // Breach Awareness (simulated k-anonymity)
+  const breach = document.createElement('div'); breach.className='card'; breach.innerHTML = `
+    <h3>Breach Awareness (Simulated)</h3>
+    <div style="display:grid; gap:8px;">
+      <input id="ba-email" type="email" placeholder="Enter email (simulation)" style="width:100%; padding:10px; border-radius:10px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); color:inherit"/>
+      <button id="ba-check" class="btn-primary">Check</button>
+      <div id="ba-res" class="hint" aria-live="polite">This demo hashes your email (SHA-1) and shows how k-anonymity works without sending data.</div>
+    </div>`; grid.appendChild(breach);
+  async function sha1(str){ const buf = await crypto.subtle.digest('SHA-1', new TextEncoder().encode(str)); return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('').toUpperCase(); }
+  breach.querySelector('#ba-check').addEventListener('click', async ()=>{
+    const email = breach.querySelector('#ba-email').value.trim().toLowerCase(); const res = breach.querySelector('#ba-res');
+    if(!email){ res.textContent='Enter a valid email.'; return; }
+    const h = await sha1(email); const prefix = h.slice(0,5); const tail = h.slice(5);
+    const found = /[A-F]$/.test(tail);
+    res.style.color = found ? '#ef9a9a' : '#9be7c4';
+    res.textContent = found ? `Possible exposure detected (simulated). Prefix ${prefix}, tail length ${tail.length}. Use unique passwords and 2FA.` : `No exposure found in simulation. Still use unique, strong passwords.`;
+  });
+
+  // Phishing Header Simulator
+  const phsim = document.createElement('div'); phsim.className='card'; phsim.innerHTML = `
+    <h3>Phishing Header Simulator</h3>
+    <div style="display:grid; gap:8px;">
+      <select id="ph-case" style="padding:10px; border-radius:10px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); color:inherit">
+        <option value="ok">From: support@bank.com | Reply-To: support@bank.com</option>
+        <option value="warn">From: support@bank.com | Reply-To: support@bnk-secure.com</option>
+        <option value="danger">From: bank-alert@security.com | Reply-To: login@ver1fy-bank.com</option>
+      </select>
+      <div id="ph-out" class="hint">Select a case to analyze.</div>
+    </div>`; grid.appendChild(phsim);
+  const phSel = phsim.querySelector('#ph-case'); const phOut = phsim.querySelector('#ph-out');
+  function analyzeHeader(val){ if(val==='ok'){ phOut.style.color='#9be7c4'; return 'Headers consistent. Still be cautious.'; } if(val==='warn'){ phOut.style.color='#f8d38b'; return 'Mismatch in Reply-To domain. Treat with caution.'; } phOut.style.color='#ef9a9a'; return 'High risk: spoofing indicators present. Do not click links.'; }
+  phSel.addEventListener('change', ()=>{ phOut.textContent = analyzeHeader(phSel.value); }); phOut.textContent = analyzeHeader(phSel.value);
+
+  // Data Classification Explorer (with demos, previews, sample data)
+  const clf = document.createElement('section');
+  clf.id='classification';
+  clf.innerHTML = `
+    <div class="container">
+      <h2 class="section-title">Data Classification</h2>
+      <p class="lead">Tap a category to preview real-like sample records. Use filters to focus.</p>
+      <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px;">
+        <button class="btn-ghost" data-f="all">All</button>
+        <button class="btn-ghost" data-f="public">Public</button>
+        <button class="btn-ghost" data-f="internal">Internal</button>
+        <button class="btn-ghost" data-f="confidential">Confidential</button>
+      </div>
+      <div class="dc-grid" id="dc-grid"></div>
+    </div>`;
+  document.querySelector('main').appendChild(clf);
+
+  // Sample dataset
+  const dataset = {
+    public: [
+      { name:'Campus Event Poster', owner:'PR Cell', updated:'2025-10-02', preview:'📣 Cultural Fest — 24 Nov, 10:00 AM @ Auditorium' },
+      { name:'Open Course Materials', owner:'CS Dept', updated:'2025-09-12', preview:'📘 DSA Slides, Labs & Assignments' },
+      { name:'Library Opening Hours', owner:'Library', updated:'2025-08-01', preview:'⏰ Mon–Sat 9AM–6PM, Sun Closed' }
+    ],
+    internal: [
+      { name:'Class Attendance Sheet', owner:'Prof. Kaur', updated:'2025-11-05', preview:'📄 Section A — Oct 2025 (Roll nos hidden in preview)' },
+      { name:'Lab Resource Usage', owner:'Lab Admin', updated:'2025-10-20', preview:'🖥️ GPU Slots: Mon 2–4PM, Wed 3–5PM' },
+      { name:'Staff Meeting Notes', owner:'Admin', updated:'2025-09-30', preview:'📝 Action Items: Wi-Fi upgrade, MFA rollout' }
+    ],
+    confidential: [
+      { name:'Exam Question Papers', owner:'Exam Cell', updated:'2025-11-15', preview:'🔒 Restricted — preview shows only metadata' },
+      { name:'Student Medical Records', owner:'Health Center', updated:'2025-07-19', preview:'🔒 Sensitive — access on need-to-know basis' },
+      { name:'Payroll Details', owner:'Accounts', updated:'2025-09-05', preview:'🔒 Confidential — encrypted at rest' }
+    ]
+  };
+
+  const meta = {
+    public: { label:'Public', desc:'Low risk if disclosed. Approved for public view.', color:'#bde7ff' },
+    internal: { label:'Internal', desc:'For staff/students only. Not for public sharing.', color:'#f8d38b' },
+    confidential: { label:'Confidential', desc:'High sensitivity. Strict access controls.', color:'#ffb3b3' }
+  };
+
+  const gridDc = clf.querySelector('#dc-grid');
+
+  function cardTemplate(type){
+    const items = dataset[type];
+    const first = items[0];
+    const div = document.createElement('div');
+    div.className = 'card dc-card';
+    div.setAttribute('data-type', type);
+    div.innerHTML = `
+      <span class="badge">${meta[type].label}</span>
+      <span class="count">${items.length} records</span>
+      <h3 style="margin:8px 0 4px">${meta[type].label} Data</h3>
+      <p class="peek">${first.preview}</p>
+      <p class="hint" style="margin:8px 0 0;">Tap to view sample records and previews</p>
+    `;
+    // interactive glow
+    div.addEventListener('mousemove', (e)=>{
+      const r = div.getBoundingClientRect();
+      div.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      div.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+    div.addEventListener('click', ()=> openModal(type));
+    return div;
+  }
+
+  function renderGrid(filter='all'){
+    gridDc.innerHTML = '';
+    const types = ['public','internal','confidential'];
+    types.forEach(t=>{
+      if(filter==='all' || filter===t){ gridDc.appendChild(cardTemplate(t)); }
+    });
+  }
+
+  // Modal for records
+  const modal = document.createElement('div');
+  modal.className = 'dc-modal';
+  modal.innerHTML = `<div class="dc-dialog" role="dialog" aria-modal="true" aria-labelledby="dc-title">
+    <div class="dc-h">
+      <div>
+        <span id="dc-badge" class="badge">Type</span>
+        <h3 id="dc-title" style="margin:6px 0 0">Records</h3>
+        <div id="dc-desc" class="hint">Description</div>
+      </div>
+      <button id="dc-close" class="btn-ghost">Close</button>
+    </div>
+    <div style="display:flex; gap:8px; margin:8px 0;">
+      <input id="dc-search" placeholder="Search by name..." style="flex:1; padding:10px; border-radius:10px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); color:inherit"/>
+      <button id="dc-clear" class="btn-ghost">Clear</button>
+    </div>
+    <div id="dc-list" class="dc-list"></div>
+  </div>`;
+  document.body.appendChild(modal);
+  modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
+  modal.querySelector('#dc-close').addEventListener('click', closeModal);
+
+  function openModal(type){
+    const badge = modal.querySelector('#dc-badge');
+    const title = modal.querySelector('#dc-title');
+    const desc = modal.querySelector('#dc-desc');
+    badge.textContent = meta[type].label; badge.style.background = 'rgba(255,255,255,.06)';
+    title.textContent = meta[type].label + ' Records';
+    desc.textContent = meta[type].desc;
+    renderList(type);
+    modal.setAttribute('open','');
+  }
+  function closeModal(){ modal.removeAttribute('open'); }
+
+  function renderList(type){
+    const list = modal.querySelector('#dc-list');
+    const q = (modal.querySelector('#dc-search').value || '').toLowerCase();
+    const items = dataset[type].filter(x => x.name.toLowerCase().includes(q));
+    list.innerHTML = items.map((x,i)=> `<details class="dc-item" style="animation: popIn .2s ease both; animation-delay:${i*40}ms">
+        <summary><b>${x.name}</b> <span class="meta">• ${x.owner} • ${x.updated}</span></summary>
+        <div class="preview">${x.preview}</div>
+      </details>`).join('');
+  }
+  modal.querySelector('#dc-search').addEventListener('input', ()=>{
+    const label = modal.querySelector('#dc-badge').textContent.toLowerCase();
+    const type = Object.keys(meta).find(k=> meta[k].label.toLowerCase()===label) || 'public';
+    renderList(type);
+  });
+  modal.querySelector('#dc-clear').addEventListener('click', ()=>{ modal.querySelector('#dc-search').value=''; const label = modal.querySelector('#dc-badge').textContent.toLowerCase(); const type = Object.keys(meta).find(k=> meta[k].label.toLowerCase()===label) || 'public'; renderList(type); });
+
+  // Filter controls
+  const filterBtns = clf.querySelectorAll('[data-f]');
+  filterBtns.forEach(b=> b.addEventListener('click', ()=>{
+    const f=b.getAttribute('data-f');
+    renderGrid(f);
+  }));
+
+  renderGrid('all');
+})();
+
+// ------------------------
+// Quiz export results
+// ------------------------
+(function exportQuiz(){
+  const quiz = document.querySelector('#interactive .quiz'); if(!quiz) return;
+  const btn = document.createElement('button'); btn.className='btn-ghost'; btn.textContent='Download Quiz Result'; btn.style.marginTop='8px';
+  const hint = quiz.querySelector('#quiz-hint'); let choice = null; const started = Date.now();
+  document.querySelectorAll('.opt').forEach(o=> o.addEventListener('click', ()=>{ choice = { text:o.textContent, correct: o.getAttribute('data-correct')==='true', timeMs: Date.now()-started }; }));
+  btn.addEventListener('click', ()=>{ const data = { project: 'Digital Trust & Safety', quiz: choice, at: new Date().toISOString() }; const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'}); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'quiz-result.json'; a.click(); URL.revokeObjectURL(a.href); if(hint) hint.textContent='Quiz result downloaded.'; });
+  quiz.appendChild(btn);
+})();
+
+// ------------------------
+// Security Headers: tooltips (static explainer)
+// ------------------------
+(function headersExplainer(){
+  const list = document.getElementById('hdr-list'); if(!list) return;
+  list.querySelectorAll('li').forEach(li=>{ li.title = 'Best practice security header. Helps mitigate clickjacking, XSS and data leakage.'; });
+})();
+
+// ------------------------
+// XSS-safe input sanitization
+// ------------------------
+(function xssSanitizer(){
+  const input = document.getElementById('xss-in'); const out = document.getElementById('xss-out'); const render = document.getElementById('xss-render'); const clear = document.getElementById('xss-clear');
+  if(!input||!out) return;
+  function sanitize(html){
+    const t = document.createElement('template'); t.innerHTML = html;
+    const disallowed = /^(script|style|iframe|object|embed|link|meta)$/i;
+    (function walk(node){
+      [...node.children].forEach(ch=>{
+        if(disallowed.test(ch.tagName)){ ch.remove(); return; }
+        // remove event handlers and javascript: URIs
+        [...ch.attributes].forEach(a=>{ if(/^on/i.test(a.name) || /javascript:/i.test(a.value)) ch.removeAttribute(a.name); });
+        walk(ch);
+      });
+    })(t.content);
+    return t.innerHTML;
+  }
+  render.addEventListener('click', ()=>{ out.innerHTML = sanitize(input.value); });
+  clear.addEventListener('click', ()=>{ input.value=''; out.innerHTML=''; });
+})();
+
+// ------------------------
+// Risk Matrix
+// ------------------------
+(function riskMatrix(){
+  const like = document.getElementById('risk-like'); const impact = document.getElementById('risk-impact'); const res = document.getElementById('risk-res');
+  if(!like||!impact||!res) return;
+  function upd(){ const l=Number(like.value), i=Number(impact.value); const score=l*i; let sev = score>=16? 'High' : score>=9? 'Medium' : 'Low'; let ctr = sev==='High'? 'CSP, MFA, segmentation, backups, monitoring' : sev==='Medium'? '2FA, least privilege, rate limit' : 'Basic hygiene, updates'; res.textContent = `Score: ${score} (${sev}) — Controls: ${ctr}.`; }
+  like.addEventListener('input', upd); impact.addEventListener('input', upd); upd();
+})();
+
+// ------------------------
+// STRIDE quick-check
+// ------------------------
+(function stride(){
+  const sel = document.getElementById('stride-asset'); const out = document.getElementById('stride-out'); if(!sel||!out) return;
+  const db = {
+    'Login form': [ ['Spoofing','Phishing-resistant MFA'], ['Tampering','CSP, server-side validation'], ['Repudiation','Audit logging'], ['Information Disclosure','Rate limiting, lockout'], ['Denial of Service','WAF, CAPTCHA'], ['Elevation of Privilege','RBAC, secure session'] ],
+    'Payments API': [ ['Spoofing','mTLS, OAuth2'], ['Tampering','HMAC signatures'], ['Repudiation','Non-repudiation with logs'], ['Information Disclosure','TLS, token scopes'], ['Denial of Service','Rate limiting, circuit breaker'], ['Elevation of Privilege','Least privilege IAM'] ],
+    'Profile settings': [ ['Spoofing','Session fixation prevention'], ['Tampering','CSRF tokens'], ['Repudiation','Change history'], ['Information Disclosure','Consented scopes'], ['Denial of Service','Resource quotas'], ['Elevation of Privilege','Access reviews'] ]
+  };
+  function render(){ const k = sel.value; out.innerHTML = db[k].map(([t,m])=> `<li><b>${t}</b>: ${m}</li>`).join(''); }
+  sel.addEventListener('change', render); render();
+})();
+
+// ------------------------
+// Local encryption demo (PBKDF2 + AES-GCM)
+// ------------------------
+(function cryptoDemo(){
+  const text = document.getElementById('crypto-text'); const pass = document.getElementById('crypto-pass'); const enc = document.getElementById('crypto-enc'); const dec = document.getElementById('crypto-dec'); const out = document.getElementById('crypto-out');
+  if(!text||!pass||!enc||!dec||!out) return;
+  const te = new TextEncoder(); const td = new TextDecoder();
+  async function deriveKey(password, salt){
+    const ik = await crypto.subtle.importKey('raw', te.encode(password), 'PBKDF2', false, ['deriveKey']);
+    return crypto.subtle.deriveKey({name:'PBKDF2', salt, iterations: 120000, hash:'SHA-256'}, ik, {name:'AES-GCM', length:256}, false, ['encrypt','decrypt']);
+  }
+  enc.addEventListener('click', async ()=>{
+    try{
+      const salt = crypto.getRandomValues(new Uint8Array(16));
+      const iv = crypto.getRandomValues(new Uint8Array(12));
+      const key = await deriveKey(pass.value, salt);
+      const ct = await crypto.subtle.encrypt({name:'AES-GCM', iv}, key, te.encode(text.value));
+      const blob = new Uint8Array([...salt, ...iv, ...new Uint8Array(ct)]);
+      out.style.color = '#9be7c4'; out.textContent = 'Encrypted (salt+iv+ciphertext, base64): ' + btoa(String.fromCharCode(...blob));
+    }catch(e){ out.style.color = '#ef9a9a'; out.textContent = 'Encryption failed.'; }
+  });
+  dec.addEventListener('click', async ()=>{
+    try{
+      const raw = atob(out.textContent.split(': ').pop()||''); const buf = new Uint8Array([...raw].map(c=>c.charCodeAt(0)));
+      const salt = buf.slice(0,16); const iv = buf.slice(16,28); const data = buf.slice(28);
+      const key = await deriveKey(pass.value, salt);
+      const pt = await crypto.subtle.decrypt({name:'AES-GCM', iv}, key, data.buffer);
+      out.style.color = '#9be7c4'; out.textContent = 'Decrypted: ' + td.decode(pt);
+    }catch(e){ out.style.color = '#ef9a9a'; out.textContent = 'Decryption failed (wrong password or data).'; }
+  });
+})();
+
+// ------------------------
+// WCAG contrast checker
+// ------------------------
+(function contrast(){
+  const t = document.getElementById('cc-text'); const b = document.getElementById('cc-bg'); const sample = document.getElementById('cc-sample'); const res = document.getElementById('cc-result');
+  if(!t||!b) return;
+  function lum(c){ c=c.replace('#',''); const r=parseInt(c.substr(0,2),16)/255, g=parseInt(c.substr(2,2),16)/255, bl=parseInt(c.substr(4,2),16)/255; const a=[r,g,bl].map(v=> v<=0.03928? v/12.92 : Math.pow((v+0.055)/1.055, 2.4)); return 0.2126*a[0]+0.7152*a[1]+0.0722*a[2]; }
+  function update(){ const l1 = lum(t.value), l2 = lum(b.value); const ratio = (Math.max(l1,l2)+0.05)/(Math.min(l1,l2)+0.05); sample.style.color=t.value; sample.style.background=b.value; res.textContent = `Ratio: ${ratio.toFixed(2)}:1 — Pass: ${ratio>=7?'AAA': ratio>=4.5?'AA':'Fail'}`; }
+  t.addEventListener('input', update); b.addEventListener('input', update); update();
+})();
+
+// ------------------------
+// Reduced motion toggle
+// ------------------------
+(function reducedMotion(){
+  const btn = document.getElementById('motion-toggle'); if(!btn) return;
+  let reduced = false;
+  btn.addEventListener('click', ()=>{ reduced = !reduced; btn.setAttribute('aria-pressed', String(reduced)); btn.textContent = reduced? 'Motion On' : 'Reduced Motion'; document.documentElement.style.setProperty('--anim', reduced? 'none' : ''); });
+})();
+  </script>
+</body>
+</html>
